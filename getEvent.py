@@ -64,11 +64,19 @@ def main():
             # データベースに接続
             conn = sqlite3.connect('zoom_url.db')
             c = conn.cursor()
-            # データベースに格納
-            c.execute("insert into zoom_url values(?, ?, ?, ?, ?, ?)",(event['id'], event['summary'], event['description'], start, end, event_time))
-            # 保存してデータベースを閉じる
-            conn.commit()
-            conn.close()
+            # idカラムに取得したイベントidがないか確認をする
+            r_eventId = event['id']
+            sql = c.execute("SELECT event_id FROM zoom_url WHERE event_id='%s'"%r_eventId)
+            sql = c.fetchone()
+            if sql == "('%s',)"%event['id']:
+                # データベースに格納
+                c.execute("insert into zoom_url values(?, ?, ?, ?, ?, ?)",(event['id'], event['summary'], event['description'], start, end, event_time))
+                # 保存してデータベースを閉じる
+                conn.commit()
+                conn.close()
+            # idカラムに取得したイベントidがある場合
+            else:
+                pass
 
 
 if __name__ == '__main__':
