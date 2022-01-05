@@ -60,15 +60,15 @@ def main():
 
 
         # カレンダー概要欄に"zoom"の文字があればデータベースに登録
-        if re.search(settings.keyword(),event['description'], flags=re.IGNORECASE):
+        if re.search(settings.keyword(),event['description'], flags=re.IGNORECASE) :
             # データベースに接続
             conn = sqlite3.connect('zoom_url.db')
             c = conn.cursor()
-            # idカラムに取得したイベントidがないか確認をする
-            r_eventId = event['id']
-            sql = c.execute("SELECT event_id FROM zoom_url WHERE event_id='%s'"%r_eventId)
-            sql = c.fetchone()
-            if sql == "('%s',)"%event['id']:
+            t = (event['id'],)
+            c.execute('SELECT event_id FROM zoom_url WHERE event_id=?;',t)
+            sql = c.fetchall()
+            # データベースにイベントidがあるか確認する
+            if sql == []:
                 # データベースに格納
                 c.execute("insert into zoom_url values(?, ?, ?, ?, ?, ?)",(event['id'], event['summary'], event['description'], start, end, event_time))
                 # 保存してデータベースを閉じる
