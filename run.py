@@ -2,11 +2,13 @@ import time
 import threading
 import getEvent
 import zoom
+import zoomGet
 
 def worker():
     try:
         getEvent.main()
         zoom.main()
+        zoomGet.main()
         time.sleep(8)
     except TypeError:
         pass

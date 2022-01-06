@@ -23,3 +23,6 @@ def apiKey():
 # zoomのAPI Secretの設定
 def apiSecret():
     return "API Secretを入れてね"
+# zoomのuserIdの設定
+def zoomUserId():
+    return "zoomUserIdを入れてね"

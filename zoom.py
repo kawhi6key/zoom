@@ -1,7 +1,7 @@
 import jwt
 import datetime
 import requests
-# import json
+import json
 import sqlite3
 import settings
 
@@ -9,6 +9,7 @@ def main():
     # データベースに接続
     conn = sqlite3.connect('zoom_url.db')
     c = conn.cursor()
+
     # sql文（今は1つの行だけ取り出す）
     c.execute('''
         SELECT *
@@ -41,3 +42,8 @@ def main():
     header = {"authorization": f"Bearer{encoded_jwt}"}
     creat_meeting = requests.post(url, json=obj, headers=header)
     print(creat_meeting.text)
+    # # データベースに格納する
+    # conn = sqlite3.connect('zoom_url.db')
+    # c = conn.cursor()
+    # c.execute("insert into zoom_meetings values(?, ?, ?, ?, ?, ?)",(creat_meeting['id'], creat_meeting['summary'], creat_meeting['description'], creat_meeting['start'], creat_meeting['end'], creat_meeting['druation']))
+    # conn.commit()
