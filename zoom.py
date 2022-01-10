@@ -3,7 +3,10 @@ import datetime
 import requests
 import json
 import sqlite3
+
+from requests.models import Response
 import settings
+import sendMail
 
 def main():
     # データベースに接続
@@ -52,7 +55,15 @@ def main():
             obj = {"topic": reservation_list[1], "start_time": date, "duration": event_time, "password": "12345"}
             header = {"authorization": f"Bearer{encoded_jwt}"}
             creat_meeting = requests.post(url, json=obj, headers=header)
-            print(creat_meeting.text)
+            response_data = json.loads(creat_meeting.text)
+
+            meetingId = response_data.get('id')
+            # print(meetingId)
+            meetingPass = response_data.get('password')
+            # print(meetingPass)
+            meetingURL = response_data.get('join_url')
+            # print(meetingURL)
+
             # データベースに接続
             conn = sqlite3.connect('zoom_url.db')
             c = conn.cursor()
@@ -61,6 +72,8 @@ def main():
             # 保存してデータベースを閉じる
             conn.commit()
             conn.close()
+            # メールの送信の実施
+            sendMail.sendMail(meetingId, meetingPass, meetingURL)
         except IndexError:
             pass
     else:
