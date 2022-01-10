@@ -13,6 +13,7 @@ Google Calendar上にzoomを使ったミーティングを実施する時に、�
 
 - Google Calendar上でミーティング日時が削除された場合、zoomのmeetingも自動で削除されるプログラム
 - 登録者のgmailにzoom meetingのURLなどが自動で送られてくるプログラム
+  →2022/01/10 解決しました
 - 時間が重ならないようにzoom meetingを自動作成するプログラム
 - 複数のzoomアカウントに対応できるプログラム
 
