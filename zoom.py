@@ -7,6 +7,7 @@ import sqlite3
 from requests.models import Response
 import settings
 import sendMail
+import pass_gen
 
 def main():
     # データベースに接続
@@ -52,7 +53,7 @@ def main():
             event_time_M = int(event_time_M)
             event_time = event_time_H + event_time_M
 
-            obj = {"topic": reservation_list[1], "start_time": date, "duration": event_time, "password": "12345"}
+            obj = {"topic": reservation_list[1], "start_time": date, "duration": event_time, "password": pass_gen.pass_gen(10)}
             header = {"authorization": f"Bearer{encoded_jwt}"}
             creat_meeting = requests.post(url, json=obj, headers=header)
             response_data = json.loads(creat_meeting.text)
