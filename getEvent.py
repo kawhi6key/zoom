@@ -77,8 +77,8 @@ def main():
                 period_checker = cur.fetchall()
 
                 if not period_checker:
-                    cur.execute('INSERT INTO zoom_url VALUES (?,?,?,?,?,?)',
-                                (event['id'], event['summary'], event['description'], start, end, event_time))
+                    cur.execute('INSERT INTO zoom_url VALUES (?,?,?,?,?,?,?,?,?)',
+                                (event['id'], event['summary'], event['description'], start, end, event_time, '', '', ''))
                     con.commit()
                     print('Successful registration to the database')
                 else:

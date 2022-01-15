@@ -17,10 +17,10 @@ def main():
 
     # Make comparisons between tables.
     c.execute('''
-            SELECT *
+            SELECT event_id
             FROM zoom_url
             EXCEPT
-            SELECT *
+            SELECT event_id
             FROM reservation_zoomData
             ;''')
     difference_list = c.fetchone()
@@ -55,16 +55,16 @@ def main():
             event_time = event_time_H + event_time_M
 
             obj = {"topic": reservation_list[1], "start_time": date, "duration": event_time, "password": pass_gen.pass_gen(10)}
-            header = {"authorization": f"Bearer{encoded_jwt}"}
-            creat_meeting = requests.post(url, json=obj, headers=header)
+            headers = {"authorization": f"Bearer{encoded_jwt}"}
+            creat_meeting = requests.post(url, json=obj, headers=headers)
             response_data = json.loads(creat_meeting.text)
 
             meetingId = response_data.get('id')
             meetingPass = response_data.get('password')
             meetingURL = response_data.get('join_url')
 
-            t = (reservation_list[0], reservation_list[1], reservation_list[2], reservation_list[3], reservation_list[4], reservation_list[5])
-            c.execute("INSERT INTO reservation_zoomData VALUES(?, ?, ?, ?, ?, ?)", t)
+            t = (reservation_list[0], reservation_list[1], reservation_list[2], reservation_list[3], reservation_list[4], reservation_list[5], meetingId, meetingPass, meetingURL)
+            c.execute("INSERT INTO reservation_zoomData VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)", t)
             # Save to database
             conn.commit()
             # Send mail
@@ -75,6 +75,4 @@ def main():
         pass
 
 
-    # conn.close()
-
-main()
+    conn.close()

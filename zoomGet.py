@@ -1,4 +1,3 @@
-
 import http.client
 import base64
 import time
@@ -33,7 +32,6 @@ def main():
     res = http_conn.getresponse()
     data = eval(res.read().decode("utf-8"))
     datas = data['meetings']
-    # print(datas[0]['uuid'])
 
     # データベース開く
     db_conn = sqlite3.connect('zoom_url.db')
