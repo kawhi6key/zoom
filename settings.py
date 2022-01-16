@@ -10,7 +10,7 @@ def timeto():
     return '2024/12/31'
 # 使用するカレンダーIDの設定
 def calenderID():
-    return 'a00e66j8horp49ovgr0qb5dq98@group.calendar.google.com'
+    return 'カレンダーIDを入れてね'
 # 説明欄関連のkeyword設定（現在はzoomで設定）
 def keyword():
     return 'zoom'
@@ -19,28 +19,28 @@ def keyword():
 # (zoom.py関連)
 # zoomに登録しているemailの設定
 def email():
-    return "hi6k0.2yk0@gmail.com"
+    return "メールアドレス"
 # zoomのAPI Keyの設定
 def apiKey():
-    return "CIHHc81ORi-hqBSiCvsS_Q"
+    return "zoomのAPI Keyを入れてね"
 # zoomのAPI Secretの設定
 def apiSecret():
-    return "D73MWoQHpWx2Ok90ZhRI76K01qbAtPJR2JIh"
+    return "zoomのAPI Secretを入れてね"
 # zoomのuserIdの設定
 def zoomUserId():
-    return "82uQ8XynS1-KBfu2kohfSA"
+    return "zoomのuserIdを入れてね"
 
 
 # （sendMail.py関連）
 # APIを利用するメルアドの設置
 def username():
-    return 'kwmt.hiroki55@gmail.com'
+    return 'メールアドレス'
 # gmailのアプリのパスワードの設定
 def password():
-    return 'epygvambrvnulilo'
+    return 'gmailのアプリのパスワード'
 # メールの送信元アドレス設定
 def fromAdress():
-    return 'kwmt.hiroki55@gmail.com'
+    return 'メールアドレス'
 # どこにメールを送るのかの設定
 def toAdress(event_id):
     con = sqlite3.connect('zoom_url.db')
