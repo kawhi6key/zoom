@@ -5,12 +5,12 @@ from email.header import Header
 
 import settings
 
-def sendMail(meetingId, meetingPass, meetingURL):
+def sendMail(event_id, meetingId, meetingPass, meetingURL):
     cset = 'utf-8'
     username = settings.username()
     password = settings.password()
     from_address = settings.fromAdress()
-    to_address = settings.toAdress()
+    to_address = settings.toAdress(event_id)
     title = settings.title()
     body = settings.body().format(meetingId, meetingPass, meetingURL)
     con = smtplib.SMTP_SSL('smtp.gmail.com', 465)  # FQDN とポート番号

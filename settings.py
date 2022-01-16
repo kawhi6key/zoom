@@ -1,4 +1,5 @@
 import datetime
+import sqlite3
 
 # (getEvent.py関連)
 # カレンダー情報の取得を開始する日付の設定 (現在は今日の日付で設定)
@@ -41,8 +42,13 @@ def password():
 def fromAdress():
     return 'kwmt.hiroki55@gmail.com'
 # どこにメールを送るのかの設定
-def toAdress():
-    return 'hi6k0.2yk0@gmail.com'
+def toAdress(event_id):
+    con = sqlite3.connect('zoom_url.db')
+    c = con.cursor()
+    t = (event_id,)
+    c.execute('SELECT creator_email FROM zoom_url WHERE event_id=?;', t)
+    creator_email = c.fetchone()
+    return creator_email[0]
 # メールのタイトル文設定
 def title():
     return u'オンライン市役所運営事務局からの「zoom meeting」取得完了のお知らせ'

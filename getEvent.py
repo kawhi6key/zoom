@@ -55,6 +55,7 @@ def main():
 
         # Prints the start and name of the next 10 events
         for event in events:
+
             start = event['start'].get('dateTime', event['start'].get('date'))
             start = functions.changeI(start)
             end = event['end'].get('dateTime', event['end'].get('date'))
@@ -78,7 +79,7 @@ def main():
 
                 if not period_checker:
                     cur.execute('INSERT INTO zoom_url VALUES (?,?,?,?,?,?,?,?,?)',
-                                (event['id'], event['summary'], event['description'], start, end, event_time, '', '', ''))
+                                (event['id'], event['summary'], event['description'], start, end, event_time, event['creator']['email'], '', ''))
                     con.commit()
                     print('Successful registration to the database')
                 else:

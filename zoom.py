@@ -68,7 +68,7 @@ def main():
             # Save to database
             conn.commit()
             # Send mail
-            sendMail.sendMail(meetingId, meetingPass, meetingURL)
+            sendMail.sendMail(reservation_list[0],meetingId, meetingPass, meetingURL)
         except IndexError:
             pass
     else:
