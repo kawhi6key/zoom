@@ -5,10 +5,10 @@ import json
 import sqlite3
 import pandas as pd
 
-from requests.models import Response
 import settings
 import sendMail
 import pass_gen
+
 
 def main():
     # connect database

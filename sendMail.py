@@ -1,9 +1,9 @@
 from email.mime.text import MIMEText
-from smtplib import SMTPException
 import smtplib
 from email.header import Header
 
 import settings
+
 
 def sendMail(event_id, meetingId, meetingPass, meetingURL):
     cset = 'utf-8'

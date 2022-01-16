@@ -2,8 +2,6 @@ import jwt
 import datetime
 import os.path
 import sqlite3
-import re
-import json
 import requests
 
 from google.auth.transport.requests import Request
@@ -13,7 +11,6 @@ from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
 
 import settings
-import functions
 from sendMail import sendMail
 
 
@@ -44,7 +41,6 @@ def main():
     try:
         conn = sqlite3.connect('zoom_url.db')
         c = conn.cursor()
-        # t = (event['id'],)
         c.execute('SELECT event_id FROM zoom_url;')
         event_ids = c.fetchall()
         for event_id in event_ids:
@@ -75,11 +71,9 @@ def main():
                 payload = {"iss": settings.apiKey() , "exp": rounded_off_exp_time}
                 encoded_jwt = jwt.encode(payload, settings.apiSecret(), algorithm="HS256")
                 url = f"https://api.zoom.us/v2/meetings/{meetingId}"
-                # obj = {"topic": reservation_list[1], "start_time": date, "duration": event_time, "password": pass_gen.pass_gen(10)}
                 headers = {"authorization": f"Bearer{encoded_jwt}"}
                 response = requests.delete(url, headers=headers)
                 print(response)
-
 
                 # データベースのreservation_zoomDataのテーブルを削除する
                 c.execute('DELETE FROM reservation_zoomData WHERE event_id=?;', event_id)
